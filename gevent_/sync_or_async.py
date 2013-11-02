@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-import profile
 import random
 import timeit
 import gevent
@@ -22,7 +21,6 @@ def asynchronous():
 if __name__ == '__main__':
     print 'Synchronous:'
     print timeit.timeit('synchronous()', 'from __main__ import synchronous', number=1)
-    #synchronous()
 
     print 'Asynchronous:'
     print timeit.timeit('asynchronous()', 'from __main__ import asynchronous', number=1)
