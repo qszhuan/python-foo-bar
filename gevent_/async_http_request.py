@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 #
+from datetime import datetime
 import json
 import urllib2
 import gevent
@@ -8,6 +9,7 @@ gevent.monkey.patch_socket()
 
 
 def fetch(pid):
+    print 'Process %s: start at %s' % (pid, str(datetime.utcnow()))
     response = urllib2.urlopen('http://localhost:8888')
     result = response.read()
     json_result = json.loads(result)
