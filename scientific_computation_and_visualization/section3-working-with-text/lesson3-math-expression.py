@@ -16,5 +16,6 @@ plt.text(0.2, 0.6, r'$\sqrt{2}$', fontsize=20, weight='bold')
 plt.text(0.2, 0.8, r'$\sqrt[3]{x}$', fontsize=20, weight='bold')
 plt.text(0.4, 0, r'$s(t) = \mathcal{A}\cdot\sin(2 \omega t)$', fontsize=20, weight='bold')
 
+plt.savefig('math-expression.jpg')
 
 plt.show()
