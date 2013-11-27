@@ -20,7 +20,7 @@ plt.plot(t2, np.cos(t2*2*np.pi), 'r--')
 plt.subplot(4, 4, 16)
 plt.plot(t1, t1, 'g*')
 
-
+plt.savefig('lesson3.png')
 plt.show()
 
 
