@@ -15,7 +15,6 @@ def autolabelh(rects):
 
 
 def generate(file_name, img_file_name):
-    global data, headers, name_header, response_header, sorted_data, name, median_response_time, bar, title
     data = np.genfromtxt(fname=file_name, dtype=None, delimiter=',', names=True, comments=False, autostrip=True)
     headers = data.dtype.names
     name_header, response_header = headers[1], headers[4]
