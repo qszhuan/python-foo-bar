@@ -10,7 +10,7 @@ print file_path
 #        if not line.startswith('# '):
 #            print line
 
-#print matplotlib.rcParams
+print matplotlib.rcParams
 
 print matplotlib.rcParams['lines.linewidth']
 
