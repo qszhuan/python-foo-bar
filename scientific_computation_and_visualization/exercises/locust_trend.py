@@ -143,7 +143,7 @@ if __name__ == '__main__':
     #
     #(options, args) = parser.parse_args()
     #file_name, img_file_name = options.csv_file_name, '.'.join([options.csv_file_name, 'png'])
-    file_name = r'/Users/zhuanqingshan/Dropbox/doc/graph/LOCUST02.2013-11-28.08.14.51.success.log.txt'
+    file_name = r'/Users/zhuanqingshan/Dropbox/doc/graph/LOCUST02.2013-11-28.08.14.52.success.log.txt'
     img_file_name = '.'.join([file_name, 'png'])
 
     LocustTrend(file_name, type='allinone').generate()
