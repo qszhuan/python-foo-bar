@@ -1,13 +1,13 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
-def draw_graph(graph):
 
+def draw_graph(graph):
     # extract nodes from graph
     nodes = set([n1 for n1, n2 in graph] + [n2 for n1, n2 in graph])
 
     # create networkx graph
-    G=nx.Graph()
+    G = nx.Graph()
 
     # add nodes
     for node in nodes:
@@ -25,6 +25,6 @@ def draw_graph(graph):
     plt.show()
 
 # draw example
-graph = [(20, 21),(21, 22),(22, 23), (23, 24),(24, 25), (25, 20),
-(20, 25),(21, 23),(22, 20), (23, 25),(24, 22), (25, 21)]
+graph = [(20, 21), (21, 22), (22, 23), (23, 24), (24, 25), (25, 20),
+         (20, 25), (21, 23), (22, 20), (23, 25), (24, 22), (25, 21)]
 draw_graph(graph)

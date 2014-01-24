@@ -106,7 +106,7 @@ vests = {'ah': 'anhui',
 
          'gb': 'gerard',
 
-         'qihui':'qq'
+         'qihui': 'qq'
 
 
 }
@@ -116,12 +116,11 @@ trans_pattern_well = maketrans('|:', '  ')
 
 with open('commits.txt') as f:
     commits = f.readlines()
-    lines = [line.split(' ', 1)[1] for line in commits]
+    lines = [line.split(' ', 1)[1].lstrip().rstrip(os.linesep) for line in commits]
 pair_counter = Counter()
 commit_counter_per_person = Counter()
 words_counter = Counter()
 for each in lines:
-    each = each.lstrip().rstrip(os.linesep)
     if each.startswith('['):
         persons, comment = each.split(']', 1)
 
@@ -139,7 +138,6 @@ for each in lines:
 
     words = translate(comment, trans_pattern).split(' ')
     words_real = [each for each in words if each is not '']
-    en.ver
     words_counter.update(words_real)
 
     if len(pairs) < 2:
@@ -214,6 +212,7 @@ def draw_graph(graph, graph_layout='shell',
 
     # show graph
 
+
 count = len(popular_workers)
 col = row = ceil(sqrt(count))
 print col, row, count
@@ -221,7 +220,7 @@ print col, row, count
 plt.axis('off')
 plt.figure(figsize=(18, 18))
 for index, each in enumerate(popular_workers):
-    plot = plt.subplot(col, row, index+1)
+    plot = plt.subplot(col, row, index + 1)
     plot.axis('off')
     pw = each[0]
     pw_rel = [pair for pair in pair_counter.keys() if pw in pair]
