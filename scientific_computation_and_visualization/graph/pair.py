@@ -119,12 +119,13 @@ trans_pattern_well = maketrans('|:', '  ')
 with open('commits.txt') as f:
     commits = f.readlines()
     lines = [line.split(' ', 1)[1].lstrip().rstrip(os.linesep) for line in commits]
+
 pair_counter = Counter()
 commit_counter_per_person = Counter()
-words_counter = Counter()
+
 for each in lines:
     if each.startswith('['):
-        persons, comment = each.split(']', 1)
+        persons = each.split(']', 1)[0]
 
         if each.endswith(']'):
             print "$$$", each
@@ -132,15 +133,11 @@ for each in lines:
         pairs = translate(persons, trans_pattern).split()
     else:
         pair_comments = translate(each, trans_pattern_well).split(' ', 1)
-        if len(pair_comments) == 1:
-            comment = pair_comments[0]
-        else:
-            pairs, comment = pair_comments
+        if len(pair_comments) > 1:
+            pairs = pair_comments[0]
             pairs = translate(pairs, trans_pattern).split()
-
-    words = translate(comment, trans_pattern).split(' ')
-    words_real = [each for each in words if each is not '']
-    words_counter.update(words_real)
+        else:
+            pairs = []
 
     if len(pairs) < 2:
         continue
@@ -177,8 +174,6 @@ for each in pair_rel:
     relation_counter.update(each)
 
 popular_workers = relation_counter.most_common(9)
-pprint(words_counter.most_common())
-#exit()
 
 import networkx as nx
 
