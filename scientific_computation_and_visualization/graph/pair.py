@@ -116,9 +116,9 @@ vests = {'ah': 'anhui',
 trans_pattern = maketrans(uppercase + punctuation, lowercase + ' ' * len(punctuation))
 trans_pattern_well = maketrans('|:', '  ')
 
-with open('commits.txt') as f:
+with open('../data/commits.txt') as f:
     commits = f.readlines()
-    lines = [line.split(' ', 1)[1].lstrip().rstrip(os.linesep) for line in commits]
+    lines = [line.split(' ', 1)[1].lstrip() for line in commits]
 
 pair_counter = Counter()
 commit_counter_per_person = Counter()
