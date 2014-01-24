@@ -106,7 +106,9 @@ vests = {'ah': 'anhui',
 
          'gb': 'gerard',
 
-         'qihui': 'qq'
+         'qihui': 'qq',
+
+         'cx': 'xi'
 
 
 }
@@ -176,7 +178,7 @@ for each in pair_rel:
 
 popular_workers = relation_counter.most_common(9)
 pprint(words_counter.most_common())
-exit()
+#exit()
 
 import networkx as nx
 
