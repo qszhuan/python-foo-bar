@@ -1,3 +1,4 @@
+pygal
 networkx
 matplotlib
 numpy

@@ -1,58 +1,41 @@
 # -*- coding:utf-8 -*-
 from collections import Counter
-import os
 from pprint import pprint
-from string import maketrans, translate
+from string import punctuation
 import nltk
 import enchant
 
-d = enchant.Dict("en_US")
 
-trans_pattern_well = maketrans(']|: ', '    ')
+def get_word_counter(file_name):
+    d = enchant.Dict("en_US")
+    map(lambda char: d.remove(char), punctuation)
+    counter = Counter()
+    total_len = 0
+    with open(file_name) as f:
+        for line in f:
+            tokens = nltk.word_tokenize(line.lower())
+            counter.update(tokens)
+            total_len += 1
 
-with open('../data/commits.txt') as f:
-    commits = f.readlines()
-    lines_without_changset = [line.split(' ', 1)[1].strip().lower() for line in commits]
-
-comments = []
-for line in lines_without_changset:
-    line_with_plain_sep = translate(line, trans_pattern_well).strip()
-    pair = line_with_plain_sep.split(' ', 1)
-    if d.check(pair[0]):
-        comments.append(line_with_plain_sep)
-    else:
-        comments.append(pair[-1])
-
-#check results manually
-#zips = zip(comments, lines_without_changset)
-#pprint(zips)
+    for key in counter.keys():
+        if not d.check(key):
+            counter.pop(key)
+    return counter, total_len
 
 
-word_counter = Counter()
-freq_dist = nltk.FreqDist()
+counter, total_commits = get_word_counter('../data/commits.txt')
 
-for line in comments:
-    tokens = nltk.word_tokenize(line)
-    tags = nltk.pos_tag(tokens)
-    for word, tag in tags:
-        if 'V' in tag or 'N' in tag:
-            freq_dist.inc(word)
-        #else:
-        #    print word, tag
+print total_commits
+top = counter.most_common(40)
+pprint(top)
 
-for skip_word in ['of', 'in', 'for', 'from', 'n/a', 'before', 'by', 'via']:
-    freq_dist.pop(skip_word)
-pprint(freq_dist.items()[:30])
-exit()
-    #word_counter.update(tokens)
+# todo: skip conj using ntlk.pos_tag
 
-pprint(word_counter.most_common(20))
+import pygal
 
-pprint(nltk.pos_tag(word_counter.keys()))
+line_chart = pygal.HorizontalBar()
+line_chart.title = 'top 25 words over %d commits' % total_commits
+line_chart.config.x_labels = [each[0] for each in top][::-1]
+line_chart.add('', [each[1] for each in top][::-1])
 
-for word, _ in word_counter.most_common(100):
-    if nltk.pos_tag([word])[0][-1][0] not in ['V', 'N']:
-        print word, _
-        word_counter.pop(word)
-
-
+line_chart.render_to_file('bar_chart.svg')
